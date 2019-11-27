@@ -2,6 +2,12 @@ html,
 body,
 .app {
   height: 100vh;
-  background: #eee;
+  background-image: url(./auth/bgnd1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 1em;
+}
+.trans {
+  opacity: 0.9;
 }
