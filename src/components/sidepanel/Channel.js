@@ -1,15 +1,20 @@
 import React, { Component } from "react";
 import firebase from "../../firebase";
+import { connect } from "react-redux";
+import { setCurrentChannel } from "../../actions";
 import { Menu, Icon, Modal, Form, Input, Button } from "semantic-ui-react";
 
 class Channel extends Component {
   state = {
+    activeChannel: "",
     channels: [],
     channelName: "",
     channelDetails: "",
     channelRef: firebase.database().ref("channels"),
     user: this.props.currentUser,
-    modal: false
+    loading: false,
+    modal: false,
+    firstload: true
   };
 
   closeModal = () => this.setState({ modal: false });
@@ -46,12 +51,32 @@ class Channel extends Component {
     this.addListener();
   }
 
+  componentWillUnmount() {
+    this.removeListeners();
+  }
+
+  removeListeners = () => {
+    this.state.channelsRef.off();
+  };
+
+  seeFirstChannel = () => {
+    const firstChannel = this.state.channels[0];
+    if (this.state.firstload && this.state.channels.length > 0) {
+      this.props.setCurrentChannel(firstChannel);
+    }
+  };
   addListener = () => {
     let loadedChannels = [];
     this.state.channelRef.on("child_added", snap => {
       loadedChannels.push(snap.val());
-      this.setState({ channels: loadedChannels });
+      this.setState({ channels: loadedChannels }, () => this.seeFirstChannel());
     });
+    this.setState({ firstload: false });
+  };
+
+  changeChannel = channel => {
+    this.setState({ activeChannel: channel.id });
+    this.props.setCurrentChannel(channel);
   };
 
   displayChannel = channels => {
@@ -60,7 +85,8 @@ class Channel extends Component {
       channels.map(channel => (
         <Menu.Item
           key={channel.id}
-          onClick={() => console.log(channel)}
+          active={channel.id === this.state.activeChannel}
+          onClick={() => this.changeChannel(channel)}
           name={channel.name}
           style={{ opacity: "0.7" }}
         >
@@ -135,4 +161,4 @@ class Channel extends Component {
   }
 }
 
-export default Channel;
+export default connect(null, { setCurrentChannel })(Channel);
