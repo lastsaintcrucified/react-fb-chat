@@ -50,7 +50,7 @@ class Login extends Component {
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ width: 480 }}>
           <Header as="h2" icon textAlign="center">
-            <Icon name="user" color="black" />
+            <Icon name="user" color="purple" />
             Login
           </Header>
           <Form size="large" onSubmit={this.handleSubmit}>
@@ -84,7 +84,7 @@ class Login extends Component {
                   login
                 </Button>
                 <Button.Or />
-                <Button as={Link} to="/register" color="black">
+                <Button as={Link} to="/register" color="purple">
                   register
                 </Button>
               </Button.Group>

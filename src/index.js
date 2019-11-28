@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
-import { setUser } from "./actions";
+import { setUser, clearUser } from "./actions";
 import rootReducer from "./reducers";
 import Spinner from "./Spinner";
 
@@ -28,6 +28,9 @@ class Root extends Component {
       if (user) {
         this.props.setUser(user);
         this.props.history.push("/");
+      } else {
+        this.props.history.push("/login");
+        this.props.clearUser();
       }
     });
   }
@@ -50,7 +53,9 @@ const mapStateFromProps = state => {
   };
 };
 
-const RootWithAuth = withRouter(connect(mapStateFromProps, { setUser })(Root));
+const RootWithAuth = withRouter(
+  connect(mapStateFromProps, { setUser, clearUser })(Root)
+);
 
 ReactDOM.render(
   <Provider store={store}>
