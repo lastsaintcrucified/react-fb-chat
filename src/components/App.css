@@ -8,6 +8,15 @@ body,
   background-size: cover;
   padding: 1em;
 }
-.trans {
-  opacity: 0.9;
+
+/*messages*/
+.messages {
+  height: 23em;
+  overflow-y: scroll;
+}
+
+.message__form {
+  z-index: 200;
+  right: 1em;
+  left: 0;
 }
