@@ -56,7 +56,7 @@ class MessagesForm extends Component {
   };
 
   render() {
-    const { errors } = this.state;
+    const { errors, message, loading } = this.state;
     return (
       <Segment className="message__form">
         <Input
@@ -64,6 +64,8 @@ class MessagesForm extends Component {
           name="message"
           style={{ marginBottom: "0.7em" }}
           label={<Button icon={"add"} />}
+          value={message}
+          disabled={loading}
           className={
             errors.some(error => error.message.includes("message"))
               ? "error"

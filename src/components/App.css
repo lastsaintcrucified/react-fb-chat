@@ -9,14 +9,21 @@ body,
   padding: 1em;
 }
 
-/*messages*/
+/*Messages.js*/
 .messages {
   height: 23em;
   overflow-y: scroll;
 }
 
+/*MessageForm.js */
 .message__form {
   z-index: 200;
   right: 1em;
   left: 0;
+}
+
+/*Message.js*/
+.message__self {
+  border-left: 2px solid blueviolet !important;
+  padding-left: 8px;
 }
