@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "semantic-ui-react";
 import { connect } from "react-redux";
-import ColorPanel from "./colorpanel/ColorPanel";
+
 import SidePanel from "./sidepanel/SidePanel";
 import Messages from "./messages/Messages";
 import MetaPanel from "./metapanel/MetaPanel";
@@ -10,8 +10,6 @@ import "./App.css";
 const App = props => {
   return (
     <Grid columns="equal" className="app">
-      <ColorPanel />
-
       <SidePanel
         key={props.currentUser && props.currentUser.id}
         currentUser={props.currentUser}
@@ -22,11 +20,16 @@ const App = props => {
           key={props.currentChannel && props.currentChannel.id}
           currentChannel={props.currentChannel}
           currentUser={props.currentUser}
+          isPrivateChannel={props.isPrivateChannel}
         />
       </Grid.Column>
 
       <Grid.Column width={4}>
-        <MetaPanel />
+        <MetaPanel
+          key={props.currentChannel && props.currentChannel.id}
+          currentChannel={props.currentChannel}
+          isPrivateChannel={props.isPrivateChannel}
+        />
       </Grid.Column>
     </Grid>
   );
@@ -35,7 +38,8 @@ const App = props => {
 const mapStateToProps = state => {
   return {
     currentUser: state.user.currentUser,
-    currentChannel: state.channel.currentChannel
+    currentChannel: state.channel.currentChannel,
+    isPrivateChannel: state.channel.isPrivateChannel
   };
 };
 

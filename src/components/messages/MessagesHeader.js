@@ -7,7 +7,8 @@ class MessagesHeader extends Component {
       channelName,
       numOfUniqueUser,
       handleSearchOnChange,
-      searchState
+      searchState,
+      isPrivateChannel
     } = this.props;
     return (
       <Segment clearing>
@@ -15,7 +16,7 @@ class MessagesHeader extends Component {
         <Header as="h2" floated="left">
           <span>
             {channelName}
-            <Icon name={"star outline"} color="black" />
+            {!isPrivateChannel && <Icon name={"star outline"} color="black" />}
           </span>
           <Header.Subheader>{numOfUniqueUser}</Header.Subheader>
         </Header>
